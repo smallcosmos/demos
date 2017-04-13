@@ -1,0 +1,39 @@
+/*better use autoprefixer*/
+.flex-container{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /*equals flex-flow: row wrap*/
+    flex-direction: row; /*row | row-reverse | column | column-reverse*/
+    flex-wrap: wrap; /*nowrap | wrap | wrap-reverse*/
+    /*width: 500px;*/ /*multi line, 500 < 600*/
+    justify-content: flex-start; /*flex-start|flex-end|center|space-between|flex-around*/
+    align-items: top; /*flex-start|flex-end|center|baseline|stretch*/
+    align-content: flex-start;
+}
+.flex-container li{
+    border: 1px solid red;
+    margin: 0 5px;
+    /*flex-basis: 300px;*/
+    /*width: 300px;*/
+
+    align-self: flex-start; /*flex-start|flex-end|center|baseline|stretch|auto*/
+}
+.flex-item:nth-child(1){
+    background-color: red;
+    /*equals flex: 1 3 auto;*/
+    flex-grow: 1;
+    flex-shrink: 3;
+}
+.flex-item:nth-child(2){
+    background-color: blue;
+    flex-grow: 2;
+    flex-shrink: 2;
+}
+.flex-item:nth-child(3){
+    background-color: yellow;
+    flex-grow: 3;
+    flex-shrink: 1;
+}
