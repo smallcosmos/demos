@@ -8,10 +8,66 @@
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <ul class="flex-container">
-            <li class="flex-item">A</li>
-            <li class="flex-item">B</li>
-            <li class="flex-item">C</li>
-        </ul>
+        <div class="module module-flex">
+            <ul class="flex-container">
+                <li class="flex-item">A</li>
+                <li class="flex-item">B</li>
+                <li class="flex-item">C</li>
+            </ul>
+        </div>
+
+        <div class="module module-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td><td>admin</td><td>0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>user</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td><td>guest</td><td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="module module-textoverflow module-border f-cb">
+            <div class="g-col g-col-3">
+                <span class="clip">不显示省略标记，而是简单地裁剪</span><br />
+                <!-- equal to .f-toe -->
+                <span class="ellipsis">当对象内文本溢出时显示省略标记</span>
+            </div>
+            <div class="g-col g-col-1">
+                <span class="icon-radius"></span>
+            </div>
+            <div class="g-col g-col-3">
+                <span class="box-shadow">阴影效果</span>
+                <span class="text-shadow">阴影效果</span>
+                <span class="reflect">box reflect</span>
+            </div>
+        </div>
+
+        <div class="module module-gradient f-cb">
+            <div class="g-col g-col-3 linear1 f-toe">linear gradient</div>
+            <div class="g-col g-col-3 linear2 f-toe">linear gradient with even stops</div>
+            <div class="g-col g-col-3 linear3 f-toe">linear gradient with specified stops</div>
+            <div class="g-col g-col-3 linear4 f-toe">linear gradient with angle</div>
+            <div class="g-col g-col-2 radial radial1"></div>
+            <div class="g-col g-col-2 radial radial2"></div>
+            <div class="g-col g-col-2 radial radial3"></div>
+            <div class="g-col g-col-2 radial radial4"></div>
+            <div class="g-col g-col-2 radial radial5"></div>
+            <div class="g-col g-col-2 radial radial6"></div>
+            <div class="g-col g-col-2 radial radial7"></div>
+            <div class="g-col g-col-2 radial radial8"></div>
+            <div class="g-col g-col-2 radial radial9"></div>
+            <div class="g-col g-col-2 radial radial10"></div>
+        </div>
     </body>
 </html>

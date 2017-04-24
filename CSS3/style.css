@@ -1,3 +1,4 @@
+/*.module-flex*/
 /*better use autoprefixer*/
 .flex-container{
     display: -webkit-box;
@@ -16,6 +17,7 @@
 .flex-container li{
     border: 1px solid red;
     margin: 0 5px;
+    line-height: 24px;
     /*flex-basis: 300px;*/
     /*width: 300px;*/
 
@@ -36,4 +38,197 @@
     background-color: yellow;
     flex-grow: 3;
     flex-shrink: 1;
+}
+
+/*.module-table*/
+tbody tr:nth-child(odd){
+    background-color: #accce0;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+}
+thead, tbody{
+    line-height: 24px;
+}
+table th, table td{
+    border: 1px solid #bbb;
+    text-align: center;
+}
+
+/*.module-textoverflow*/
+.module-textoverflow span.clip,
+.module-textoverflow span.ellipsis{
+    display: inline-block;
+    width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.module-textoverflow span.clip:hover,
+.module-textoverflow span.ellipsis:hover{
+    overflow: visible;
+    text-overflow: inherit;
+}
+span.clip{
+    text-overflow: clip;
+}
+
+.icon-radius{
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border: 10px solid rgba(255, 0, 0, 0.25);
+    border-radius: 40px;
+    background-color: #accce0;
+}
+/*box-shadow: h-shadow v-shadow blur spread color inset;*/
+.box-shadow{
+    margin: 20px;
+    box-shadow: 3px 3px 10px 5px red;
+}
+/*text-shadow: h-shadow v-shadow blur color;*/
+.text-shadow{
+    margin: 20px;
+    text-shadow: 10px 10px 1px black;
+}
+/*box-reflect：none | <direction> <offset>? <mask-box-image>?*/
+.reflect{
+    display: inline-block; /* very important*/
+    font-size: 16px;
+    -webkit-box-reflect: below 10px -webkit-linear-gradient(transparent,transparent 10%,rgba(255,255,255,.5)); /* above|below|left|right*/
+}
+
+.module-gradient > div{
+    height: 50px;
+    color: #fff;
+}
+.linear1{
+    background: -webkit-linear-gradient(left, #000, #fff);
+    background: -moz-linear-gradient(left, #000, #fff);
+    background: -o-linear-gradient(left, #000, #fff);
+    background: linear-gradient(to right, #000, #fff);
+}
+.linear2{
+    background: -webkit-linear-gradient(left, #000, #f00, #0f0, #00f, #fff);
+    background: -moz-linear-gradient(left, #000, #f00, #0f0, #00f, #fff);
+    background: -o-linear-gradient(left, #000, #f00, #0f0, #00f, #fff);
+}
+.linear3{
+    background: -webkit-linear-gradient(left, #000 1%, #f00 30%, #0f0 90%, #00f 99%, #fff);
+    background: -moz-linear-gradient(left, #000 1%, #f00 30%, #0f0 90%, #00f 99%, #fff);
+    background: -o-linear-gradient(left, #000 1%, #f00 30%, #0f0 90%, #00f 99%, #fff);
+}
+.linear4{
+    background: -webkit-linear-gradient(210deg, #000, #fff);
+    background: -moz-linear-gradient(210deg, #000, #fff);
+    background: -o-linear-gradient(210deg, #000, #fff);
+    background: linear-gradient(210deg, #000, #fff);
+}
+/*-moz-radial-gradient([<bg-position> || <angle>,]? [<shape> || <size>,]? <color-stop>, <color-stop>[, <color-stop>]*);
+ -webkit-radial-gradient([<bg-position> || <angle>,]? [<shape> || <size>,]? <color-stop>, <color-stop>[, <color-stop>]*);*/
+.g-col.radial{
+    height: 100px;
+    padding: 0;
+    margin-right: 20px;
+}
+.radial1{
+    background: -webkit-radial-gradient(bottom left, ellipse, #000, rgba(0, 255, 0, 0.4), #fff);
+    background: -moz-radial-gradient(bottom left, ellipse, #000, rgba(0, 255, 0, 0.4), #fff);
+}
+.radial2{
+    background: -webkit-radial-gradient(bottom left, circle, #000, rgba(0, 255, 0, 0.4), #fff);
+    background: -moz-radial-gradient(bottom left, circle, #000, rgba(0, 255, 0, 0.4), #fff);
+}
+.radial3{
+    background: -webkit-radial-gradient(50px 30px, circle closest-side, #000, rgba(0, 255, 0, 0.4), #fff);
+    background: -moz-radial-gradient(50px 30px, circle closest-side, #000, rgba(0, 255, 0, 0.4), #fff);
+}
+.radial4{
+    background: -webkit-radial-gradient(50px, circle farthest-side, #000, rgba(0, 255, 0, 0.4), #fff);
+    background: -moz-radial-gradient(50px, circle farthest-side, #000, rgba(0, 255, 0, 0.4), #fff);
+}
+.radial5{
+    background: -webkit-radial-gradient(50px, circle closest-corner, #000, rgba(0, 255, 0, 0.4), #fff);
+    background: -moz-radial-gradient(50px, circle closest-corner, #000, rgba(0, 255, 0, 0.4), #fff);
+}
+.radial6{
+    background: -webkit-radial-gradient(50px, circle farthest-corner, #000, rgba(0, 255, 0, 0.4), #fff);
+    background: -moz-radial-gradient(50px, circle farthest-corner, #000, rgba(0, 255, 0, 0.4), #fff);
+}
+.radial7{
+    background: -webkit-radial-gradient(50% 0, circle farthest-side, #fff, #000);
+    background: -moz-radial-gradient(50% 0, circle farthest-side, #fff, #000);
+}
+.radial8{
+    background: -webkit-radial-gradient(50% 0, circle farthest-corner, #fff, #000);
+    background: -moz-radial-gradient(50% 0, circle farthest-corner, #fff, #000);  
+}
+.radial9{
+    background: -webkit-repeating-radial-gradient(50%, #fff 0, #fff 10px, #f00 10px, #f00 20px, #000 20px, #000 30px);
+    background: -moz-repeating-radial-gradient(50%, #fff 0, #fff 10px, #f00 10px, #f00 20px, #000 20px, #000 30px);
+}
+.radial10{
+    background: -webkit-repeating-radial-gradient(0, rgba(0, 255, 0, 0.15) 0, rgba(0, 255, 0, 0.15) 10px, rgba(255, 0, 0, 0.15) 10px, rgba(255, 0, 0, 0.15) 20px, transparent 20px, transparent 30px);
+    background: -moz-repeating-radial-gradient(0, rgba(0, 255, 0, 0.15) 0, rgba(0, 255, 0, 0.15) 10px, rgba(255, 0, 0, 0.15) 10px, rgba(255, 0, 0, 0.15) 20px, transparent 20px, transparent 30px);
+}
+
+
+
+
+/*@font-face{
+    font-family: BorderWeb;
+    src: url(BORDERW0.eot);
+}*/
+
+/* other style*/
+.module{
+    padding: 20px;
+    border-bottom: 1px solid #bbb;
+    font-size: 14px;
+}
+.g-col{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    padding: 0 20px;
+}
+.g-col-1{
+    width: 8.333333%;
+}
+.g-col-2{
+    width: 16.666667%;
+}
+.g-col-3{
+    width: 25%;
+}
+.g-col-4{
+    width: 33.333333%;
+}
+.g-col-5{
+    width: 41.666667%;
+}
+.g-col-6{
+    width: 50%;
+}
+.g-col-7{
+    width: 58.333333%;
+}
+.g-col-8{
+    width: 66.666667%;
+}
+.g-col-9{
+    width: 75%;
+}
+.g-col-10{
+    width: 83.333333%;
+}
+.g-col-11{
+    width: 91.666667%;
+}
+.g-col-12{
+    width: 100%;
 }
