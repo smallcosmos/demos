@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>html5</title>
+        <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+        <link rel="stylesheet" href="../css-lib/reset.css">
+        <link rel="stylesheet" href="../css-lib/function.css">
+        <link rel="stylesheet" href="../css-lib/common.css">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="module f-cb f-tac">
+            <!-- width|height|src|autoplay|loop|controls|preload -->
+            <div class="g-col g-col-4">
+                <video width="240px" height="120px" controls="controls" src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg"></video>
+                <div class="g-col g-col-12">
+                    <button type="button" id="play-pause">播放／暂停</button>
+                    <button type="button" id="big-video">放大</button>
+                    <button type="button" id="small-video">缩小</button>
+                </div>
+            </div>
+            <div class="g-col g-col-4">
+                <audio height="120px" width="240px" controls="controls" src="http://5.26923.com/download/ring/000/099/3542822f8f71fb2ae82cb7b27f7d545d.ogg"></audio>
+            </div>
+        </div>
+  
+    </body>
+    <script src="../js-lib/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var video = $("video")[0];
+            $("#play-pause").on("click", function(){
+                video.paused ? video.play() : video.pause();
+            });
+            $("#big-video").on("click", function(){
+                if(video.width > 500) return;
+                video.width += 120;
+                video.height += 60;
+            });
+            $("#small-video").on("click", function(){
+                if(video.width <= 120) return;
+                video.width -= 120;
+                video.height -= 60;
+            });
+        });
+    </script>
+</html>
