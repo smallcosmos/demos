@@ -12,7 +12,12 @@
         <div class="module f-cb f-tac">
             <!-- width|height|src|autoplay|loop|controls|preload -->
             <div class="g-col g-col-4">
-                <video width="240px" height="120px" controls="controls" src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg"></video>
+                <!-- Ogg|MPEG 4|WebM -->
+                <!-- MPEG for ie&safari -->
+                <video width="240px" height="120px" controls="controls" src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg">
+                    <source src="xxx.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
                 <div class="g-col g-col-12">
                     <button type="button" id="play-pause">播放／暂停</button>
                     <button type="button" id="big-video">放大</button>
@@ -20,14 +25,37 @@
                 </div>
             </div>
             <div class="g-col g-col-4">
-                <audio height="120px" width="240px" controls="controls" src="http://5.26923.com/download/ring/000/099/3542822f8f71fb2ae82cb7b27f7d545d.ogg"></audio>
+                <audio height="120px" width="240px" controls="controls" src="http://5.26923.com/download/ring/000/099/3542822f8f71fb2ae82cb7b27f7d545d.ogg">
+                    <source src="xxx.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
             </div>
+        </div>
+
+        <div class="module f-cb">
+            <div class="g-col g-col-3 drag-ctn" ondragover="allowdrop(event)" ondrop="drop(event)">
+                <img src="./image.jpg" draggable="draggable" id="drag1" ondragstart="drag(event)"/>
+            </div>
+            <div class="g-col g-col-3 drag-ctn" ondragover="allowdrop(event)" ondrop="drop(event)"></div>
         </div>
   
     </body>
     <script src="../js-lib/jquery-3.2.1.min.js"></script>
     <script>
+        function drag(ev){
+            var id = ev.target.id;
+            ev.dataTransfer.setData("id", id);
+        }
+        function allowdrop(ev){
+            ev.preventDefault();
+        }
+        function drop(ev){
+            ev.preventDefault();
+            var id = ev.dataTransfer.getData("id");
+            $(ev.target).append($("#" + id));
+        }
         $(document).ready(function(){
+            /* module-video */
             var video = $("video")[0];
             $("#play-pause").on("click", function(){
                 video.paused ? video.play() : video.pause();
@@ -42,6 +70,8 @@
                 video.width -= 120;
                 video.height -= 60;
             });
+
+
         });
     </script>
 </html>
