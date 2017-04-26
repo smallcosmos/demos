@@ -38,40 +38,48 @@
             </div>
             <div class="g-col g-col-3 drag-ctn" ondragover="allowdrop(event)" ondrop="drop(event)"></div>
         </div>
+
+        <div class="module f-cb">
+            <div class="g-col g-col-3">
+                <!--default 300*150-->
+                <canvas id="canvas1" width="300" height="100"></canvas>
+            </div>
+            <div class="g-col g-col-3">
+                <canvas id="canvas2" width="300" height="100"></canvas>
+            </div>
+            <div class="g-col g-col-3">
+                <canvas id="canvas3" width="300" height="100"></canvas>
+            </div>
+            <div class="g-col g-col-3">
+                <canvas id="canvas4" width="300" height="100"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas5" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas6" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas7" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas8" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas9" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas10" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas11" width="150" height="150"></canvas>
+            </div>
+            <div class="g-col g-col-2">
+                <canvas id="canvas12" width="150" height="150"></canvas>
+            </div>
+        </div>
   
     </body>
     <script src="../js-lib/jquery-3.2.1.min.js"></script>
-    <script>
-        function drag(ev){
-            var id = ev.target.id;
-            ev.dataTransfer.setData("id", id);
-        }
-        function allowdrop(ev){
-            ev.preventDefault();
-        }
-        function drop(ev){
-            ev.preventDefault();
-            var id = ev.dataTransfer.getData("id");
-            $(ev.target).append($("#" + id));
-        }
-        $(document).ready(function(){
-            /* module-video */
-            var video = $("video")[0];
-            $("#play-pause").on("click", function(){
-                video.paused ? video.play() : video.pause();
-            });
-            $("#big-video").on("click", function(){
-                if(video.width > 500) return;
-                video.width += 120;
-                video.height += 60;
-            });
-            $("#small-video").on("click", function(){
-                if(video.width <= 120) return;
-                video.width -= 120;
-                video.height -= 60;
-            });
-
-
-        });
-    </script>
+    <script src="./index.js"></script>
 </html>
