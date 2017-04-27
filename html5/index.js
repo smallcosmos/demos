@@ -16,6 +16,10 @@ $(document).ready(function(){
     canvas10Init();
     canvas11Init();
     canvas12Init();
+    canvas13Init();
+    canvas14Init();
+    canvas15Init();
+    canvas16Init();
 });
 
 /* module video*/
@@ -86,7 +90,13 @@ function canvas2Init(){
     ctx.quadraticCurveTo(225,75,225,37.5);
     ctx.quadraticCurveTo(225,0,175,0);
     ctx.closePath();
-    ctx.stroke();   
+    ctx.stroke();
+
+    // text,x,y[,maxWidth]
+    ctx.font = "36px serif";
+    ctx.fillText("Hi~", 150, 30); 
+    ctx.font = "36px serif";
+    ctx.strokeText("good morning", 80, 60);
 }
 
 function canvas3Init(){
@@ -276,6 +286,137 @@ function canvas12Init(){
         return;
     }
     var ctx = canvas.getContext('2d');
+    var bgd = $("#canvas6")[0];
+
+    var linearGradient = ctx.createLinearGradient(12.5,12.5,137.5,12.5);
+    linearGradient.addColorStop(0,'rgb(0,255,255)');
+    linearGradient.addColorStop(1,'rgb(0,255,42)');
+    var linearGradient2 = ctx.createLinearGradient(137.5,12.5,12.5,137.5);
+    linearGradient2.addColorStop(0,'rgb(0,255,42)');
+    linearGradient2.addColorStop(1,'rgb(0,42,255)');
+    var linearGradient3 = ctx.createLinearGradient(12.5,137.5,137.5,137.5);
+    linearGradient3.addColorStop(0,'rgb(0,42,255)');
+    linearGradient3.addColorStop(1,'rgb(0,42,42)');
+
+    // image[,sx,sy,sWidth,sHeight],x,y[,width,height]
+    ctx.drawImage(bgd,0,0);
+    ctx.beginPath();
+    ctx.moveTo(12.5,12.5);
+    ctx.strokeStyle = linearGradient;
+    ctx.lineTo(137.5,12.5);
+    // ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(137.5,12.5);
+    ctx.strokeStyle = linearGradient2;
+    ctx.lineTo(12.5,137.5);
+    // ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(12.5,137.5);
+    ctx.strokeStyle = linearGradient3;
+    ctx.lineTo(137.5,137.5);
+    ctx.stroke();
+}
+
+function canvas13Init(){
+    var canvas = $("#canvas13")[0];
+    if(!canvas.getContext){
+        return;
+    }
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    img.onload = function(){
+        for(var i=0; i<4; ++i){
+            for(var j=0; j<4; ++j){
+                ctx.drawImage(img,526,67,340,260,j*40,i*33,40,33);
+            }
+        }
+    }
+    img.src = './image.jpg';
+}
+
+function canvas14Init(){
+    var canvas = $("#canvas14")[0];
+    if(!canvas.getContext){
+        return;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#9cff00';
+    ctx.scale(0.6,0.4);
+    for(var i=0; i<3; ++i){
+        for(var j=0; j<6; ++j){
+            ctx.save();
+            ctx.translate(60+j*100,60+i*100);
+            drawSpirograph(ctx,20*(j+3)/(j+1),-4*(i+2)/(i+1),10);
+            ctx.restore();
+        }
+    }
+}
+
+function canvas15Init(){
+    var canvas = $("#canvas15")[0];
+    if(!canvas.getContext){
+        return;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.translate(75,75);
+    for(var i=0; i<6; i++){
+        ctx.save();
+        ctx.fillStyle = 'rgb(' + (51*i) + ',' + (255-51*i) + ',255)';
+        for(var j=0; j<i*6; ++j){
+            ctx.rotate(Math.PI*2/(i*6));
+            ctx.beginPath();
+            ctx.arc(0,12.5*i,5,0,Math.PI*2);
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+}
+
+function canvas16Init(){
+    var canvas = $("#canvas16")[0];
+    if(!canvas.getContext){
+        return;
+    }
+    var ctx = canvas.getContext('2d');
+    var type = ['source-over', 'destination-over', 'source-in', 'destination-in',
+                'source-out', 'destination-out', 'source-atop', 'destination-atop',
+                'lighter', 'darken', 'xor', 'copy'];
+    ctx.save();
+    ctx.fillStyle = '#00f';
+    ctx.fillRect(10,10,50,50);
+    ctx.globalCompositeOperation = type[10];
+    ctx.fillStyle = "#f00";
+    ctx.moveTo(85,60);
+    ctx.arc(60,60,25,0,Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    /*星星*/
+    ctx.translate(100,0);
+    ctx.save();
+    ctx.fillRect(0,0,150,150);
+    ctx.translate(75,75);
+    ctx.arc(0,0,60,60,0,Math.PI*2);
+    ctx.clip();
+
+    var linearGradient = ctx.createLinearGradient(-75,0,75,0);
+    linearGradient.addColorStop(0,'#232256');
+    linearGradient.addColorStop(1,'#143778');
+    ctx.fillStyle = linearGradient;
+    ctx.fillRect(-75,-75,150,150);
+    for(var i=0; i<50; i++){
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.translate(75-Math.floor(Math.random()*150),75-Math.floor(Math.random()*150));
+        drawStar(ctx,Math.floor(Math.random()*4)+2);
+        ctx.restore();
+    }
+    ctx.restore();
+
+    /**/
+    ctx.translate(160,0);
 }
 
 /* canvas 圆角矩形函数 */
@@ -305,4 +446,47 @@ function drop(ev){
     ev.preventDefault();
     var id = ev.dataTransfer.getData("id");
     $(ev.target).append($("#" + id));
+}
+
+/*假设有一个点
+ *以 R + r 为半径，ω为角速度旋转
+ *同时以 r + O 为半径，(1 + R / r) ω为角速度反向旋转
+ */
+function drawSpirograph(ctx,R,r,O){
+    var x1 = R-O;
+    var y1 = 0;
+    var i  = 1;
+    
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    
+    do {
+       if (i>20000) break;
+       var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72))
+       var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72))
+       ctx.lineTo(x2,y2);
+       
+       x1 = x2;
+       y1 = y2;
+       i++;
+    }
+    while (x2 != R-O && y2 != 0 );
+    ctx.stroke();
+ }
+
+function drawStar(ctx,r){
+    ctx.save();
+    ctx.beginPath()
+    ctx.moveTo(r,0);
+    for(var i=0; i<9; i++){
+        ctx.rotate(Math.PI/5);
+        if(i%2 == 0){
+            ctx.lineTo((r/0.525731)*0.200811,0);
+        }else{
+            ctx.lineTo(r,0);
+        }
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
 }
