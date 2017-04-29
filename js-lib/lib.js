@@ -259,3 +259,48 @@ function makeCORSRequest(data, xhr, callback, callback_fail, callback_error){
 
 	xhr.send(data);
 }
+
+/*
+ * 原生实现对象扩张，简化自jquery.extend，只支持浅拷贝
+ */
+var _extend = function(){  
+    var options, name, src, copy, copyIsArray, clone,  
+        target = arguments[0] || {}, // 目标对象  
+        i = 1,  
+        length = arguments.length,  
+        deep = false;  
+    // 处理深度拷贝情况（第一个参数是boolean类型且为true）  
+    if ( typeof target === "boolean" ) {  
+        deep = target && false;  
+        target = arguments[1] || {};  
+        // 跳过第一个参数（是否深度拷贝）和第二个参数（目标对象）  
+        i = 2;  
+    }  
+    // 如果目标不是对象或函数，则初始化为空对象  
+    if ( typeof target !== "object" && typeof(target) != 'function' ) {  
+        target = {};  
+    }
+    for ( ; i < length; i++ ) {  
+        // Only deal with non-null/undefined values  
+        if ( (options = arguments[ i ]) != null ) {  
+            // Extend the base object  
+            for ( name in options ) {  
+                src = target[ name ];  
+                copy = options[ name ];  
+                // Prevent never-ending loop  
+                if ( target === copy ) {  
+                    continue;  
+                }  
+                // 如果对象中包含了数组或者其他对象，则使用递归进行拷贝  
+                if ( deep ) {  
+                    return false; 
+                // 不拷贝undefined值  
+                } else if ( copy !== undefined ) {  
+                    target[ name ] = copy;  
+                }  
+            }  
+        }
+    }  
+    // 返回已经被修改的对象  
+    return target;  
+};

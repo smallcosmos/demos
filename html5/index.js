@@ -20,6 +20,8 @@ $(document).ready(function(){
     canvas14Init();
     canvas15Init();
     canvas16Init();
+    canvas17Init();
+    canvas18Init();
 });
 
 /* module video*/
@@ -415,8 +417,196 @@ function canvas16Init(){
     }
     ctx.restore();
 
-    /**/
+    /*color pick*/
     ctx.translate(160,0);
+    ctx.save();
+    var colorPick = $('.color-pick');
+    function pick(event){
+        var layerX = event.layerX;
+        var layerY = event.layerY;
+        var pixel = ctx.getImageData(layerX,layerY,1,1);
+        var data = pixel.data;
+        var rgb = 'rgba(' + data[0] + ',' + data[1] + ',' + data[2] + ',' + (data[3]/255) + ')';
+        colorPick.css({
+            background: rgb,
+            left: layerX+35+'px',
+            top: layerY-20+'px'
+        });
+        colorPick.show();
+        colorPick.html(rgb);
+    }
+    function clear(event){
+        colorPick.hide();
+    }
+    var img = new Image();
+    img.onload = function(){
+        ctx.drawImage(img,0,0,300,150);
+        drawNext();
+    }
+    canvas.addEventListener('mousemove', pick);
+    canvas.addEventListener('mouseout', clear);
+    img.src = './image.jpg';
+    ctx.restore();
+
+    /* grayscale*/
+    function drawNext(){
+        ctx.translate(300,0);
+        ctx.save();
+        function invert(){
+            var myImageData = ctx.getImageData(260,0,300,150);
+            var data = myImageData.data;
+            for(var i=0; i+2<data.length; i+=4){
+                data[i] = 255 - data[i];
+                data[i+1] = 255 - data[i+1];
+                data[i+2] = 255 - data[i+2];
+            }
+            // putImageData(imgData,x,y[,dirtyX,dirtyY,dirtyWidth,dirtyHeight]);
+            ctx.putImageData(myImageData,580,0);
+        }
+        function gray(){
+            var myImageData = ctx.getImageData(260,0,300,150);
+            var data = myImageData.data;
+            var avg;
+            for(var i=0; i+2<data.length; i+=4){
+                avg = (data[i] + data[i+1] + data[i+2])/3;
+                data[i] = data[i+1] = data[i+2] = avg;
+            }
+            ctx.putImageData(myImageData,900,0);
+        }
+        function retina(){
+            var myImageData = ctx.getImageData(260,0,300,150);
+            var data = myImageData.data;
+            var retinaWeight = [0.299, 0.587, 0.114];
+            var avg;
+            for(var i=0; i+2<data.length; i+=4){
+                avg = retinaWeight[0] * data[i] + retinaWeight[1] * data[i+1] + retinaWeight[2] * data[i+2];
+                data[i] = data[i+1] = data[i+2] = avg;
+            }
+            ctx.putImageData(myImageData,1220,0);
+        }
+        invert();
+        gray();
+        retina();
+        ctx.restore();
+    }
+}
+
+function canvas17Init(){
+    var canvas = $("#canvas17")[0];
+    if(!canvas.getContext){
+        return;
+    }
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width;
+    var h = canvas.height;
+    var dots = [];
+    var defaultsOpts = {
+        dotsCount: 30,
+        defaultDotRadius: 2,
+        allowExtDotRadius: 2,
+        defaultSpeed: 1,
+        allowExtSpeed: 1,
+        connectRadius: 200
+    };
+    var opts = {};
+    function Dot(){
+        this.radius = opts.defaultDotRadius + Math.random() * opts.allowExtDotRadius;
+        this.directionAngle = Math.floor(Math.random()*360);
+        this.speed = Math.random() * opts.allowExtSpeed + opts.defaultSpeed;
+        this.vendor = {
+            x: Math.cos(this.directionAngle) * this.speed,
+            y: Math.sin(this.directionAngle) * this.speed
+        };
+        this.x = Math.floor(Math.random() * w);
+        this.y = Math.floor(Math.random() * h);
+    }
+    Dot.prototype = {
+        constructor: Dot,
+        border: function(){
+            if(this.x <= 0 || this.x >= w){
+                this.vendor.x *= -1;
+            }
+            if(this.y <= 0 || this.y >= h){
+                this.vendor.y *= -1;
+            }
+            if(this.x < 0){
+                this.x = 0;
+            }
+            if(this.x > w){
+                this.x = w;
+            }
+            if(this.y < 0){
+                this.y = 0;
+            }
+            if(this.y > h){
+                this.y = h;
+            }
+        },
+        update: function(){
+            this.border();
+            this.x += this.vendor.x;
+            this.y += this.vendor.y;
+        },
+        draw: function(){
+            ctx.save();
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+    function setup(options){
+        _extend(opts, defaultsOpts, options);
+        for(var i=0; i<opts.dotsCount; ++i){
+            dots.push(new Dot());
+        }
+        window.requestAnimationFrame(loop);
+    }
+    function loop(){
+        window.requestAnimationFrame(loop);
+        ctx.clearRect(0,0,w,h);
+        for(var i=0; i<dots.length; ++i){
+            dots[i].update();
+            dots[i].draw();
+            connectDots(i);
+        }
+    }
+    function connectDots(index){
+        ctx.save();
+        ctx.lineWidth = 0.5;
+        for(var i=0; i<dots.length; ++i){
+            if(index == i) continue;
+            var distance = getDistance(dots[index].x,dots[index].y,dots[i].x,dots[i].y);
+            var opacity = 1 - distance/opts.connectRadius;
+            ctx.strokeStyle = 'rgba(255,255,255,' + opacity + ')';
+            ctx.beginPath();
+            ctx.moveTo(dots[index].x, dots[index].y);
+            ctx.lineTo(dots[i].x, dots[i].y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+    function getDistance(x1,y1,x2,y2){
+        return Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
+    }
+    setup({
+        dotsCount: 30,
+        defaultDotRadius: 2,
+        allowExtDotRadius: 2,
+        defaultSpeed: 1,
+        allowExtSpeed: 1,
+        connectRadius: 200
+    });
+}
+
+function canvas18Init(){
+    var canvas = $("#canvas18")[0];
+    if(!canvas.getContext){
+        return;
+    }
+    var ctx = canvas.getContext('2d');
 }
 
 /* canvas 圆角矩形函数 */

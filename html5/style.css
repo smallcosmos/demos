@@ -13,3 +13,15 @@ img{
 	width: 100%;
 	height: 100%;
 }
+.color-pick{
+	position: absolute;
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+	background: transparent;
+	color: #fff;
+}
+.dynamic-dot-ctn{
+	display: inline-block;
+	background: #222;
+}
