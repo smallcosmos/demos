@@ -37,7 +37,7 @@ git reset --hard
 
 //添加修改文件到暂存区
 git add ./
-删除暂存区文件
+//删除暂存区文件
 git rm <filename>
 //恢复文件状态
 git reset HEAD <filename>
@@ -51,3 +51,21 @@ git commit -a -m "commit info"
 git commit --amend
 //
 git push
+//合并指定commit号到当前分支
+git cherry-pick cfebxxxx
+//删除未追踪文件untracked files
+git clean -f
+git clean -df
+
+// working tree内回滚
+git checkout file1
+git checkout file1 file2 file3
+git checkout .
+// index(stage)内回滚
+git status
+git reset HEAD file1
+// commit回滚
+git reset HEAD^
+git reset --soft HEAD~2
+git status
+git reset HEAD file1
