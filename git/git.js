@@ -70,5 +70,17 @@ git reset --soft HEAD~2
 git status
 git reset HEAD file1
 
+//合并分支到当前分支
+//merge dev to master
+git checkout master
+git merge dev
+git add ./
+git commit -m "merge info"
+
+//删除本地dev分支
+git branch -D dev
+//删除远程dev分支
+git push origin :dev
+
 // test git merge, this is master
 // test git merge, this is dev
