@@ -71,3 +71,4 @@ git status
 git reset HEAD file1
 
 // test git merge, this is master
+// test git merge, this is dev
