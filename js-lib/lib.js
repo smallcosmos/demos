@@ -155,25 +155,40 @@ function createXMLHttpRequest(){
 	return request;
 }
 
-/*
- * 用post向服务器端发送脚
- */ 
-function postData(url, data, callback){
-	var request = createXMLHttpRequest();
-	//指定请求
-	request.open("POST",url);
-	request.onreadystatechange = function(){
-		handleResponse(request,callback);
-	}
-	//添加监听事件
-	//addEvent(request,"readystatechange", handleResponse(request,callback));
-	//设置Content-Type类型，表单数据编码格式有一个正式的MIME类型
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	//request.setRequestHeader("Content-Type","text/plain;charset=UTF-8");
-	
-	//立即发送
-	request.send(encodeFormData(data));
-	//or request.send(JSON.stringify(data));
+var postData = function(url, opts, callback){
+    var type = '';
+    var data = opts.data || {};
+    var contentType = opts.contentType || 'text/plain';
+    if(opts.type && opts.type.toLowerCase === "get"){
+        type = 'get';
+    }else{
+        type = 'post';
+    }
+    var request = createXMLHttpRequest();
+    request.open(type, url);
+    request.onreadystatechange = function(){
+        handleResponse(request, callback);
+    }
+    // request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.setRequestHeader('Content-Type', contentType);
+
+    if(type == 'get'){
+        request.send(encodeFormData(data));
+    }else{
+        request.send(JSON.stringify(data));
+    }
+}
+
+var load = function(url, content, callback){
+    this.postData(url, {type: 'get'}, function(xhr){
+        document.querySelector(content).innerHTML = xhr.responseText;
+        callback(xhr);
+    })
+}
+var loadjs = function(url){
+    var script = document.createElement('script');
+    script.src=url;
+    document.querySelector('body').appendChild(script);
 }
 
 /*
@@ -304,3 +319,186 @@ var _extend = function(){
     // 返回已经被修改的对象  
     return target;  
 };
+
+var typeof = function(obj){
+    if(obj === null){
+        return 'null';
+    }
+    if(Array.isArray(obj)){
+        return 'array';
+    }
+    return typeof(obj);
+}
+
+var clone = function(obj){
+    var type = util.typeof(obj);
+    switch(type){
+        case "object": 
+        var cloned = {};
+        for(var i in obj){
+            cloned[i] = util.clone(obj[i]);
+        }
+        return cloned;
+        case 'array':
+            return obj.map(util.clone);
+        default:
+            return obj;
+    }
+    return obj;
+}
+
+var closest = function(el, selector){
+    var matchSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+    while(el){
+        if(matchSelector.call(el, selector)){
+            break;
+        }
+        el = el.parentElement;
+    }
+    return el;
+}
+
+var $ = function(selector, selectAll){
+    if(selector.slice(0,1) == '#'){
+        return document.getElementById(selector.slice(1));
+    }else{
+        if(selectAll){
+            return document.querySelectorAll(selector);
+        }
+        return document.querySelector(selector);
+    }
+}
+
+var find = function(target, selector, selectAll){
+    if(selectAll){
+        return target.querySelectorAll(selector);
+    }
+    return target.querySelector(selector);
+}
+
+
+if(typeof Array.prototype.forEach != "function") {
+	Array.prototype.forEach = function(fn, context){
+		for(var k = 0, length = this.length; k < length; k++){
+			if(typeof fn === "function" && Object.prototype.hasOwnProperty.call(this, k)){
+				fn.call(context, this[k], k, this);
+			}
+		}
+	};
+}
+
+if(typeof Array.prototype.map != "function"){
+	Array.prototype.map = function(fn, context){
+		var arr = [];
+		if(typeof fn === "function"){
+			for(var k = 0, length = this.length; k < length; k++){      
+				arr.push(fn.call(context, this[k], k, this));
+			}
+		}
+		return arr;
+	};
+}
+
+if(typeof Array.prototype.filter != "function"){
+	Array.prototype.filter = function(fn, context){
+		var arr = [];
+		if(typeof fn === "function"){
+			for(var k = 0, length = this.length; k < length; k++){
+				fn.call(context, this[k], k, this) && arr.push(this[k]);
+			}
+		}
+		return arr;
+	};
+}
+
+if(typeof Array.prototype.some != "function"){
+	Array.prototype.some = function(fn, context){
+		var passed = false;
+		if(typeof fn === "function"){
+			for(var k = 0, length = this.length; k < length; k++){
+				if(passed === true) break;
+				passed = !!fn.call(context, this[k], k, this);
+			}
+		}
+		return passed;
+	};
+}
+
+if(typeof Array.prototype.every != "function"){
+	Array.prototype.every = function(fn, context){
+		var passed = true;
+		if(typeof fn === "function"){
+			for(var k = 0, length = this.length; k < length; k++){
+				if(passed === false) break;
+				passed = !!fn.call(context, this[k], k, this);
+			}
+		}
+		return passed;
+	};
+}
+
+if(typeof Array.prototype.indexOf != "function"){
+	Array.prototype.indexOf = function(searchElement, fromIndex){
+		var index = -1,
+			fromIndex = fromIndex * 1 || 0;
+		for(var k = 0, length = this.length; k < length; k++){
+			if(k >= fromIndex && this[k] === searchElement){
+				index = k;
+				break;
+			}
+		}
+		return index;
+	};
+}
+
+if(typeof Array.prototype.lastIndexOf != "function"){
+	Array.prototype.lastIndexOf = function(searchElement, fromIndex){
+		var index = -1,
+			length = this.length,
+			fromIndex = fromIndex * 1 || length - 1;
+		for(var k = length - 1; k > -1; k-=1){
+			if(k <= fromIndex && this[k] === searchElement){
+				index = k;
+				break;
+			}
+		}
+		return index;
+	};
+}
+
+if(typeof Array.prototype.reduce != "function"){
+	Array.prototype.reduce = function(callback, initialValue){
+		var previous = initialValue,
+			k = 0,
+			length = this.length;
+		if(typeof initialValue === "undefined"){
+			previous = this[0];
+			k = 1;
+		}
+
+		if(typeof callback === "function"){
+			for(k; k < length; k++){
+				this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+			}
+		}
+		return previous;
+	};
+}
+
+if(typeof Array.prototype.reduceRight != "function"){
+	Array.prototype.reduceRight = function(callback, initialValue){
+		var length = this.length,
+			k = length - 1,
+			previous = initialValue;
+		if(typeof initialValue === "undefined"){
+			previous = this[length - 1];
+			k--;
+		}
+		if(typeof callback === "function"){
+			for(k; k > -1; k-=1){          
+				this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+			}
+		}
+		return previous;
+	};
+}

@@ -445,7 +445,7 @@ function canvas16Init(){
     }
     canvas.addEventListener('mousemove', pick);
     canvas.addEventListener('mouseout', clear);
-    img.src = './image.jpg';
+    img.src = './test.jpeg';
     ctx.restore();
 
     /* grayscale*/
@@ -473,6 +473,20 @@ function canvas16Init(){
             }
             ctx.putImageData(myImageData,900,0);
         }
+        function lighter(){
+            var myImageData = ctx.getImageData(260,0,300,150);
+            var data = myImageData.data;
+            var lighterVendor = 100;
+            for(var i=0; i+2<data.length; i+=4){
+                data[i] = data[i] + lighterVendor;
+                data[i+1] = data[i+1] + lighterVendor;
+                data[i+2] = data[i+2] + lighterVendor;
+                data[i] = data[i] > 255 ? 255 : data[i];
+                data[i+1] = data[i+1] > 255 ? 255 : data[i+1];
+                data[i+2] = data[i+2] > 255 ? 255 : data[i+2];
+            }
+            ctx.putImageData(myImageData,900,0);
+        }
         function retina(){
             var myImageData = ctx.getImageData(260,0,300,150);
             var data = myImageData.data;
@@ -485,7 +499,8 @@ function canvas16Init(){
             ctx.putImageData(myImageData,1220,0);
         }
         invert();
-        gray();
+        // gray();
+        lighter();
         retina();
         ctx.restore();
     }

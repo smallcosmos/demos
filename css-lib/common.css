@@ -15,6 +15,25 @@ tbody tr:nth-child(odd){
     background-color: #accce0;
 }
 
+.u-arrow{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+}
+.u-arrow-left{
+    border-right: 5px solid #7d7d7d;
+}
+.u-arrow-right{
+    border-left: 5px solid #7d7d7d;
+}
+.u-arrow-top{
+    border-bottom: 5px solid #7d7d7d;
+}
+.u-arrow-bottom{
+    border-top: 5px solid #7d7d7d;
+}
+
 .g-col{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
