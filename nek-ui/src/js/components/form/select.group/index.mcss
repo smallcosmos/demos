@@ -1,0 +1,7 @@
+.u-selectgroup-error {
+    .u-select {
+        .dropdown_hd  {
+            border-color: #d73925;
+        }
+    }
+}
