@@ -1,0 +1,30 @@
+{
+  "name": "my-demos",
+  "version": "1.0.0",
+  "description": "my demos",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rm:nek-ui": "shx rm -rf ./node_modules/nek-ui",
+    "rm:dist": "shx rm -rf ./nek-ui/dist",
+    "cp:dist": "shx cp -r ./node_modules/nek-ui/dist ./nek-ui/",
+    "update": "npm run rm:nek-ui && npm install && npm run rm:dist && npm run cp:dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smallcosmos/demos.git"
+  },
+  "author": "linxingjian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smallcosmos/demos/issues"
+  },
+  "homepage": "https://github.com/smallcosmos/demos#readme",
+  "devDependencies": {
+    "nek-ui": "latest",
+    "shx": "^0.2.2"
+  }
+}
