@@ -1,5 +1,5 @@
 define([
-    './index.js'
+    './app.js'
 ], function(Page){
     new Page().$inject('#app');
 });

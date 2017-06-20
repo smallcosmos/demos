@@ -19,7 +19,7 @@ $brand-error-darker =                   #dc7373;
 $brand-secondary =                      $brand-primary;
 $brand-secondary-darker =               $brand-primary-darker;
 $panel-header =                         #fafafa;
-$panel-header-color =                   #e31436;
+$panel-header-color =                   #000;
 $panel-header-icon-color =              $brand-default;
 
 @import "./index.mcss";

@@ -1,0 +1,21 @@
+<div class="m-app">
+    <ui.row>
+        <ui.button title="panel" on-click={this.goto('panel')} class={current == 'panel' ? 'selected' : ''} />
+        <ui.button title="ui.button" on-click={this.goto('ui.button')} class={current == 'ui.button' ? 'selected' : ''} />
+    </ui.row>
+    {#if current == 'panel'}
+    <ui.row>
+        <ui.col span=6>
+            <panel title="测试" open=true disabled>
+                <h3>测试</h3>
+            </panel>
+        </ui.col>
+    </ui.row>
+    {/if}
+
+    {#if current == 'ui.button'}
+    <ui.row>
+        <ui.button title="测试" on-click={this.buttonClick()}/>
+    </ui.row>
+    {/if}
+</div>
