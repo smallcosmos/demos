@@ -14,7 +14,15 @@ define([
         config: function(data){
             this.supr(data);
             extend(data, {
-                current: 'panel'
+                current: 'panel',
+                testSource: [{
+                    id: 1,
+                    name: "asd"
+                }, {
+                    id: 2,
+                    name: "qwe"
+                }],
+                testValue: 2
             });
         },
         goto: function(page){
@@ -23,6 +31,9 @@ define([
         },
         buttonClick: function(){
             alert("ok");
+        },
+        selectChange: function(event){
+            console.log(event, this.data.testValue);
         }
     });
     return component;

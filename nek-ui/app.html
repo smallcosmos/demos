@@ -2,6 +2,7 @@
     <ui.row>
         <ui.button title="panel" on-click={this.goto('panel')} class={current == 'panel' ? 'selected' : ''} />
         <ui.button title="ui.button" on-click={this.goto('ui.button')} class={current == 'ui.button' ? 'selected' : ''} />
+        <ui.button title="regular" on-click={this.goto('regular')} class={current == 'regular' ? 'selected' : ''} />
     </ui.row>
     {#if current == 'panel'}
     <ui.row>
@@ -17,5 +18,13 @@
     <ui.row>
         <ui.button title="测试" on-click={this.buttonClick()}/>
     </ui.row>
+    {/if}
+
+    {#if current == 'regular'}
+    <select r-model="{testValue}" on-change={this.selectChange($event)}>
+        {#list testSource as item}
+        <option value="{item.id}">{item.name}</option>
+        {/list}
+    </select>
     {/if}
 </div>
