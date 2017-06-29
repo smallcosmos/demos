@@ -1,9 +1,14 @@
 <div class="m-app">
+    <!-- nav -->
     <ui.row>
         <ui.button title="panel" on-click={this.goto('panel')} class={current == 'panel' ? 'selected' : ''} />
         <ui.button title="ui.button" on-click={this.goto('ui.button')} class={current == 'ui.button' ? 'selected' : ''} />
         <ui.button title="regular" on-click={this.goto('regular')} class={current == 'regular' ? 'selected' : ''} />
+        <ui.button title="textarea" on-click={this.goto('textarea')} class={current == 'textarea' ? 'selected' : ''} />
+        <ui.button title="ui.form" on-click={this.goto('ui.form')} class={current == 'ui.form' ? 'selected' : ''} />
     </ui.row>
+
+    <!-- page -->
     {#if current == 'panel'}
     <ui.row>
         <ui.col span=6>
@@ -21,10 +26,35 @@
     {/if}
 
     {#if current == 'regular'}
+    <ui.row>
     <select r-model="{testValue}" on-change={this.selectChange($event)}>
         {#list testSource as item}
         <option value="{item.id}">{item.name}</option>
         {/list}
     </select>
+    </ui.row>
+    {/if}
+
+    {#if current == 'textarea'}
+    <ui.row>
+    <ui.form ref="textareaForm">
+        <form.item title="测试" required>
+            <ui.textarea required />
+        </form.item>
+    </ui.form>
+    <ui.button title="validate" on-click={this.textareaValidate()}/>
+    </ui.row>
+    {/if}
+
+    {#if current == 'ui.form'}
+    <ui.row>
+    <ui.form ref="uiForm" service={@(nekService)} on-sourceCompleted={this.sourceCompleted($event)}>
+        <ui.col span=4>
+            <form.item title="测试" sourceKey='test'>
+                <ui.select />
+            </form.item>
+        </ui.col>
+    </ui.form>
+    </ui.row>
     {/if}
 </div>
