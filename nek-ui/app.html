@@ -6,6 +6,9 @@
         <ui.button title="regular" on-click={this.goto('regular')} class={current == 'regular' ? 'selected' : ''} />
         <ui.button title="textarea" on-click={this.goto('textarea')} class={current == 'textarea' ? 'selected' : ''} />
         <ui.button title="ui.form" on-click={this.goto('ui.form')} class={current == 'ui.form' ? 'selected' : ''} />
+        <kl-button title="kl-input" on-click={this.goto('kl-input')} class={current == 'kl-input' ? 'selected' : ''} />
+        <kl-button title="multi.select" on-click={this.goto('multi.select')} class={current == 'multi.select' ? 'selected' : ''} />
+        <kl-button title="kl.tabs" on-click={this.goto('kl.tabs')} class={current == 'kl.tabs' ? 'selected' : ''} />
     </ui.row>
 
     <!-- page -->
@@ -56,5 +59,43 @@
         </ui.col>
     </ui.form>
     </ui.row>
+    {/if}
+
+    {#if current == 'kl-input'}
+    <kl-row>
+    <kl-col span=4>
+        <kl-input type="float" value={testValue | klInputTrans} decimalDigits="2" min=0 max=100 />
+    </kl-col>
+    </kl-row>
+    {/if}
+
+    {#if current == 'multi.select'}
+    <kl-row>
+    <kl-col span=4>
+        <ui.form service={@(nekService)}>
+            <form.item sourceKey='test'>
+                <ui.select value={testValue} multiple={true} />
+            </form.item>
+        </ui.form>
+    </kl-col>
+    </kl-row>
+    {/if}
+
+    {#if current == 'kl.tabs'}
+    <kl-row>
+    <kl-col span=12>
+        <kl-tabs class="m-tabs-right">
+            <kl-tab title="xxxxxxxxxxxxxxxxx" />               
+            <kl-tab title="yyyyyyyyyyyyyyyyy" />
+            <kl-tab title="zzzzzzzzzzzzzzzzz" />               
+            <kl-tab title="xxxxxxxxxxxxxxxxx" />               
+            <kl-tab title="yyyyyyyyyyyyyyyyy" />
+            <kl-tab title="zzzzzzzzzzzzzzzzz" />              
+            <kl-tab title="xxxxxxxxxxxxxxxxx" />               
+            <kl-tab title="yyyyyyyyyyyyyyyyy" />
+            <kl-tab title="zzzzzzzzzzzzzzzzz" />
+        </kl-tabs>
+    </kl-col>
+    </kl-row>
     {/if}
 </div>
