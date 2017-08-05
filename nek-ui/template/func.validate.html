@@ -1,0 +1,90 @@
+{#if current == 'func-validation'}
+    <kl-form ref="validateForm" service={@(nekService)} class="f-mt20">
+        <kl-form-item title="kl-check" required>
+            <kl-check name="1" checked={checkValue1} rules={Rules.checkRule1} />
+            <kl-check name="2" checked={checkValue2} rules={Rules.checkRule2} />
+            <kl-check name="3" checked={checkValue3} rules={Rules.checkRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-input" required>
+            <kl-input title="input1" rules={inputRuleType ? Rules.inputRule1 : Rules.inputRule2} />
+            <kl-input title="input2" rules={Rules.inputRule2} />
+            <kl-input title="input3" rules={Rules.inputRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-upload" required>
+            <kl-upload action='https://nos.kaolafed.com/upload' multiple={true} accept="*" num-perline={3} list-type="card" file-list={fileList} numMin={1}></kl-upload>
+        </kl-form-item>
+
+        <kl-form-item title="kl-check-group" sourceKey="checkGroupSource" required>
+            <kl-check-group value={checkGroupValue} min={2} rules={Rules.checkGroupRule1} />
+        </kl-form-item>
+        <kl-form-item title="kl-check-group" sourceKey="checkGroupSource" required>
+            <kl-check-group value={checkGroupValue} rules={Rules.checkGroupRule2} />
+        </kl-form-item>
+        <kl-form-item title="kl-check-group" sourceKey="checkGroupSource">
+            <kl-check-group value={checkGroupValue} rules={Rules.checkGroupRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-date-picker" required>
+            <kl-date-picker />
+            <kl-date-picker rules={Rules.datePickerRule1} />
+            <kl-date-picker rules={Rules.datePickerRule2} />
+            <kl-date-picker rules={Rules.datePickerRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-multi-select" sourceKey="selectSource" required>
+            <kl-multi-select />
+        </kl-form-item>
+        <kl-form-item title="kl-multi-select" sourceKey="selectSource" required>
+            <kl-multi-select rules={Rules.multiSelectRule1} />
+        </kl-form-item>
+        <kl-form-item title="kl-multi-select" sourceKey="selectSource" required>
+            <kl-multi-select rules={Rules.multiSelectRule2} />
+        </kl-form-item>
+        <kl-form-item title="kl-multi-select" sourceKey="selectSource" required>
+            <kl-multi-select rules={Rules.multiSelectRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-radio-group" sourceKey="selectSource" required>
+            <kl-radio-group />
+        </kl-form-item>
+        <kl-form-item title="kl-radio-group" sourceKey="selectSource" required>
+            <kl-radio-group rules={Rules.radioGroupRule1} />
+        </kl-form-item>
+        <kl-form-item title="kl-radio-group" sourceKey="selectSource" required>
+            <kl-radio-group rules={Rules.radioGroupRule2} />
+        </kl-form-item>
+        <kl-form-item title="kl-radio-group" sourceKey="selectSource" required>
+            <kl-radio-group rules={Rules.radioGroupRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-select" sourceKey="selectSource" required>
+            <kl-select />
+        </kl-form-item>
+        <kl-form-item title="kl-select" sourceKey="selectSource" required>
+            <kl-select rules={Rules.selectRule1} />
+        </kl-form-item>
+        <kl-form-item title="kl-select" sourceKey="selectSource" required>
+            <kl-select rules={Rules.selectRule2} />
+        </kl-form-item>
+        <kl-form-item title="kl-select" sourceKey="selectSource" required>
+            <kl-select rules={Rules.selectRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-textarea" required>
+            <kl-textarea />
+            <kl-textarea rules={Rules.textareaRule1} />
+            <kl-textarea rules={Rules.textareaRule2} />
+            <kl-textarea rules={Rules.textareaRule3} />
+        </kl-form-item>
+
+        <kl-form-item title="kl-upload" required>
+            <kl-upload action='https://nos.kaolafed.com/upload' multiple={true} accept="*" />
+            <kl-upload action='https://nos.kaolafed.com/upload' multiple={true} accept="*" numMin={2} numMax={3} rules={Rules.uploadRule1} />
+            <kl-upload action='https://nos.kaolafed.com/upload' multiple={true} accept="*" rules={Rules.uploadRule2} />
+            <kl-upload action='https://nos.kaolafed.com/upload' multiple={true} accept="*" rules={Rules.uploadRule3} />
+        </kl-form-item>
+        <kl-button title="提交" on-click={this.validate()}/>
+    </kl-form>
+{/if}

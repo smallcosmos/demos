@@ -2,7 +2,7 @@
     "code": 200,
     "message": "success",
     "data": {
-        "test": [{
+        "selectSource": [{
             "id": 1,
             "name": "wtf",
             "children": [{
@@ -15,6 +15,16 @@
         }, {
             "id": 0,
             "name": "kljj"
+        }],
+        "checkGroupSource": [{
+            "id": 1,
+            "name": "wtf"
+        }, {
+            "id": 2,
+            "name": "hahaha"
+        }, {
+            "id": 3,
+            "name": "qwer"
         }]
     }
 }

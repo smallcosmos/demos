@@ -1,64 +1,49 @@
 <div class="m-app">
     <!-- nav -->
-    <ui.row>
-        <ui.button title="panel" on-click={this.goto('panel')} class={current == 'panel' ? 'selected' : ''} />
-        <ui.button title="ui.button" on-click={this.goto('ui.button')} class={current == 'ui.button' ? 'selected' : ''} />
-        <ui.button title="regular" on-click={this.goto('regular')} class={current == 'regular' ? 'selected' : ''} />
-        <ui.button title="textarea" on-click={this.goto('textarea')} class={current == 'textarea' ? 'selected' : ''} />
-        <ui.button title="ui.form" on-click={this.goto('ui.form')} class={current == 'ui.form' ? 'selected' : ''} />
-        <kl-button title="kl-input" on-click={this.goto('kl-input')} class={current == 'kl-input' ? 'selected' : ''} />
-        <kl-button title="multi.select" on-click={this.goto('multi.select')} class={current == 'multi.select' ? 'selected' : ''} />
-        <kl-button title="kl.tabs" on-click={this.goto('kl.tabs')} class={current == 'kl.tabs' ? 'selected' : ''} />
-    </ui.row>
+    {#inc navTpl}
 
     <!-- page -->
     {#if current == 'panel'}
-    <ui.row>
-        <ui.col span=6>
+    <kl-row>
+        <kl-col span=6>
             <panel title="测试" open=true disabled>
                 <h3>测试</h3>
             </panel>
-        </ui.col>
-    </ui.row>
+        </kl-col>
+    </kl-row>
     {/if}
 
-    {#if current == 'ui.button'}
-    <ui.row>
-        <ui.button title="测试" on-click={this.buttonClick()}/>
-    </ui.row>
+    {#if current == 'kl-button'}
+    <kl-button title="测试" on-click={this.buttonClick()} class="f-mt20" />
     {/if}
 
     {#if current == 'regular'}
-    <ui.row>
-    <select r-model="{testValue}" on-change={this.selectChange($event)}>
+    <select r-model="{testValue}" on-change={this.selectChange($event)} class="f-mt20">
         {#list testSource as item}
         <option value="{item.id}">{item.name}</option>
         {/list}
     </select>
-    </ui.row>
     {/if}
 
-    {#if current == 'textarea'}
-    <ui.row>
-    <ui.form ref="textareaForm">
-        <form.item title="测试" required>
-            <ui.textarea required />
+    {#if current == 'kl-textarea'}
+    <kl-form ref="textareaForm" class="f-mt20">
+        <form.item titleTemplate="测试" tip="tip" required>
+            <kl-textarea required />
         </form.item>
-    </ui.form>
-    <ui.button title="validate" on-click={this.textareaValidate()}/>
-    </ui.row>
+    </kl-form>
+    <kl-button title="validate" on-click={this.textareaValidate()}/>
     {/if}
 
-    {#if current == 'ui.form'}
-    <ui.row>
-    <ui.form ref="uiForm" service={@(nekService)} on-sourceCompleted={this.sourceCompleted($event)}>
-        <ui.col span=4>
-            <form.item title="测试" sourceKey='test'>
-                <ui.select />
+    {#if current == 'kl-form'}
+    <kl-row>
+    <kl-form ref="uiForm" service={@(nekService)} on-sourceCompleted={this.sourceCompleted($event)}>
+        <kl-col span=4>
+            <form.item title="测试" sourceKey='selectSource'>
+                <kl-select />
             </form.item>
-        </ui.col>
-    </ui.form>
-    </ui.row>
+        </kl-col>
+    </kl-form>
+    </kl-row>
     {/if}
 
     {#if current == 'kl-input'}
@@ -69,22 +54,22 @@
     </kl-row>
     {/if}
 
-    {#if current == 'multi.select'}
+    {#if current == 'kl-multi-select'}
     <kl-row>
     <kl-col span=4>
-        <ui.form service={@(nekService)}>
+        <kl-form service={@(nekService)}>
             <form.item sourceKey='test'>
-                <ui.select value={testValue} multiple={true} />
+                <kl-select value={testValue} multiple={true} />
             </form.item>
-        </ui.form>
+        </kl-form>
     </kl-col>
     </kl-row>
     {/if}
 
-    {#if current == 'kl.tabs'}
+    {#if current == 'kl-tabs'}
     <kl-row>
     <kl-col span=12>
-        <kl-tabs class="m-tabs-right">
+        <kl-tabs>
             <kl-tab title="xxxxxxxxxxxxxxxxx" />               
             <kl-tab title="yyyyyyyyyyyyyyyyy" />
             <kl-tab title="zzzzzzzzzzzzzzzzz" />               
@@ -98,4 +83,23 @@
     </kl-col>
     </kl-row>
     {/if}
+
+    {#if current == 'kl-upload'}
+    <kl-form-item title="开户文件" class="f-mt20">
+        <kl-upload action='test/index' multiple={true} accept="*" num-perline={3} file-list={fileList} readonly={false} on-success={this.successCb()} on-error={this.errorCb()}></kl-upload>
+    </kl-form-item>
+    <kl-button title="提交" on-click={this.uploadSubmit()}/>
+    {/if}
+
+    {#inc funcValidateTpl}
+
+    {#if current == 'kl-table'}
+    <kl-table source={testSource}>
+        <kl-table-col name="name" width=100 key="name"></kl-table-col>
+        <kl-table-col name="操作" fixed="right" width=150>
+            <kl-table-template template={optTpl} type="item" />
+        </kl-table-col>
+    </kl-table>
+    {/if}
+    
 </div>

@@ -1,6 +1,9 @@
 define([
+    './rule.js',
     'text!./app.html',
-], function(tpl){
+    'text!./template/_nav.html',
+    'text!./template/func.validate.html'
+], function(Rules, appTpl, navTpl, funcValidateTpl){
     function extend(o1, o2 ,override){
         for(var i in o2){
             if(o1[i] == undefined || override){
@@ -46,39 +49,57 @@ define([
             return (r1/r2) * pow(10, t2-t1);
         }
     }
+    var optTpl = '{#if this.$parent.$parent.getAccess(item.name)}';
+    optTpl += '<a target="_blank" href="">审核</a>';
+    optTpl += '{/if}';
     var component = Regular.extend({
-        template: tpl,
+        template: appTpl,
         config: function(data){
             this.supr(data);
             extend(data, {
                 nekService: '/backend/pageSelectInput/getListByKeys',
-                current: 'multi.select',
+                Rules: Rules,
+                navTpl: navTpl,
+                funcValidateTpl: funcValidateTpl,
+                current: 'func-validation',
                 testSource: [{
                     id: 1,
-                    name: "asd",
-                    children: [{
-                        id: 11,
-                        name: "zxc"
-                    }]
+                    name: "asd"
                 }, {
                     id: 2,
-                    name: "qwe"
+                    name: 'qwe'
                 }],
                 testValue: 2,
+                checkValue1: true,
+                checkValue2: false,
+                checkValue3: true,
+                checkGroupValue: '1,2',
                 condition: {
                     testValue: 2
-                }
+                },
+                optTpl: optTpl
             });
         },
         init: function(){
-            //
+            this.supr();
+            var self = this;
+            this.data.fileList = [{
+                name: 'kaola-logo.jpg',
+                url: 'http://haitao.nos.netease.com/264271ddbec447288f17aef71119b1f4.png?imageView&thumbnail=220x0&quality=85&v=1'
+            }];
+
+            this.$update();
+            // setInterval(function(){
+            //     self.data.inputRuleType = !self.data.inputRuleType;
+            //     self.$update();
+            // },3000);
         },
         goto: function(page){
             this.data.current = page;
             this.$update();
         },
 
-        // ui.button
+        // kl-button
         buttonClick: function(){
             alert("ok");
         },
@@ -88,7 +109,7 @@ define([
             console.log(event, this.data.testValue);
         },
 
-        // ui.textarea
+        // kl-textarea
         textareaValidate: function(){
             var form = this.$refs.textareaForm;
             var result = form.validate();
@@ -99,6 +120,29 @@ define([
 
         sourceCompleted: function(event){
             console.log("source loader, event: ", event);
+        },
+
+        //kl-upload
+        uploadSubmit: function(){
+            console.log(this.data.fileList);
+        },
+        successCb: function(){
+            console.log('uploadSuccess');
+        },
+        errorCb: function(){
+            console.log('uploadError');
+        },
+
+        //kl-validation
+        validate: function(){
+            var form = this.$refs.validateForm;
+            var result = form.validate();
+            console.log(result.success);
+        },
+
+        getAccess: function(access){
+            console.log(access);
+            return access;
         }
     }).filter({
         klInputTrans: {
