@@ -1,9 +1,10 @@
 define([
     './rule.js',
+    './filter.js',
     'text!./app.html',
     'text!./template/_nav.html',
     'text!./template/func.validate.html'
-], function(Rules, appTpl, navTpl, funcValidateTpl){
+], function(Rules, Filter, appTpl, navTpl, funcValidateTpl){
     function extend(o1, o2 ,override){
         for(var i in o2){
             if(o1[i] == undefined || override){
@@ -77,7 +78,8 @@ define([
                 condition: {
                     testValue: 2
                 },
-                optTpl: optTpl
+                optTpl: optTpl,
+                datePickerValue: undefined
             });
         },
         init: function(){
@@ -126,11 +128,21 @@ define([
         uploadSubmit: function(){
             console.log(this.data.fileList);
         },
-        successCb: function(){
-            console.log('uploadSuccess');
+        successCb: function(event){
+            console.log('uploadSuccess', event);
         },
-        errorCb: function(){
-            console.log('uploadError');
+        errorCb: function(event){
+            console.log('uploadError', event);
+        },
+        beforeOnLoad: function(json){
+            if(json.code == 200){
+                var data = json.data || {};
+                if(Array.isArray(data)){
+                    data = data[0]
+                }
+                return data;
+            }
+            return false;  
         },
 
         //kl-validation
@@ -144,7 +156,7 @@ define([
             console.log(access);
             return access;
         }
-    }).filter({
+    }).filter(Filter).filter({
         klInputTrans: {
             get: function(value){
                 if(!parseFloat(value)){

@@ -86,12 +86,12 @@
 
     {#if current == 'kl-upload'}
     <kl-form-item title="开户文件" class="f-mt20">
-        <kl-upload action='test/index' multiple={true} accept="*" num-perline={3} file-list={fileList} readonly={false} on-success={this.successCb()} on-error={this.errorCb()}></kl-upload>
+        <kl-upload action='/backend/upload' multiple={true} accept="*" imageWidth={20} file-list={fileList} listType="list" on-success={this.successCb($event)} on-error={this.errorCb($event)} beforeOnLoad={this.beforeOnLoad}></kl-upload>
     </kl-form-item>
     <kl-button title="提交" on-click={this.uploadSubmit()}/>
     {/if}
 
-    {#inc funcValidateTpl}
+    <!-- {#inc funcValidateTpl} -->
 
     {#if current == 'kl-table'}
     <kl-table source={testSource}>
@@ -100,6 +100,11 @@
             <kl-table-template template={optTpl} type="item" />
         </kl-table-col>
     </kl-table>
+    {/if}
+
+    {#if current == 'kl-date-picker'}
+    <kl-date-picker date={datePickerValue} showTime={true} defaultTime="23:59:59" class="f-fl" />
+    <kl-button title="重置" on-click={datePickerValue=undefined} />
     {/if}
     
 </div>

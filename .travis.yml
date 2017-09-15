@@ -2,3 +2,15 @@ language: node_js
 
 node_js:
 - 8
+
+branches:
+  only:
+  - master
+
+before_install:
+# - npm install -g gulp
+# - npm install -g nek
+
+install:
+# - cd doc && npm install
+# - cd .. && npm install
