@@ -1,6 +1,6 @@
 {
   "name": "easy-codepen",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "nekui plugin for testing in codepen",
   "main": "index.js",
   "scripts": {
