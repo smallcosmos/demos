@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/smallcosmos/demos/issues"
   },
-  "homepage": "https://github.com/smallcosmos/demos#readme"
+  "homepage": "https://github.com/smallcosmos/demos#readme",
+  "dependencies": {
+    "path": "^0.12.7"
+  }
 }
