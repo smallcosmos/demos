@@ -1,1 +1,1 @@
-index.js
+window.eQuestion = 'test';

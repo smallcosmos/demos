@@ -1,13 +1,23 @@
 {
   "name": "easy-question",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js"
   },
-  "files": "dist",
+  "files": [
+    "dist"
+  ],
   "author": "linxingjian",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "path": "^0.12.7",
+    "webpack": "^3.6.0"
+  },
+  "dependencies": {
+    "nek-ui": "^0.6.1",
+    "regular": "^0.1.6"
+  }
 }
