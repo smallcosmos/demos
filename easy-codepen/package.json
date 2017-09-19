@@ -1,10 +1,11 @@
 {
   "name": "easy-codepen",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "nekui plugin for testing in codepen",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
   },
   "files": [
     "dist"
@@ -14,5 +15,8 @@
   "devDependencies": {
     "path": "^0.12.7",
     "webpack": "^3.6.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2"
   }
 }
