@@ -1,2 +1,3 @@
 /backend/pageSelectInput/getListByKeys getListByKeys.json
 /backend/upload upload.json
+/api/logout upload.json

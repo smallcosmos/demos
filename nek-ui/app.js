@@ -62,7 +62,7 @@ define([
                 Rules: Rules,
                 navTpl: navTpl,
                 funcValidateTpl: funcValidateTpl,
-                current: 'func-validation',
+                current: 'kl-button',
                 testSource: [{
                     id: 1,
                     name: "asd"
@@ -79,26 +79,43 @@ define([
                     testValue: 2
                 },
                 optTpl: optTpl,
-                datePickerValue: undefined
+                beginTime: this.transTime(+new Date() - 7 * 24 * 60 * 60 * 1000, 'start', 'date'),
+                endTime: this.transTime(+new Date() - 24 * 60 * 60 * 1000, 'end', 'date'),
+
+                formData: new FormData()
             });
         },
+        transTime: function(value, flag, type) {
+            type = type || 'timestamp';
+            if(value && value > 0){
+                var tempDate = new Date(value);
+                if(flag == 'start'){
+                    tempDate.setHours(0,0,0,0);
+                }else if(flag == 'end'){
+                    tempDate.setHours(23,59,59,999);
+                }
+                return type == 'timestamp' ? tempDate.getTime() : tempDate;
+            }else{
+                return '';
+            }
+        },
         init: function(){
-            this.supr();
             var self = this;
             this.data.fileList = [{
                 name: 'kaola-logo.jpg',
                 url: 'http://haitao.nos.netease.com/264271ddbec447288f17aef71119b1f4.png?imageView&thumbnail=220x0&quality=85&v=1'
             }];
-
-            this.$update();
-            // setInterval(function(){
-            //     self.data.inputRuleType = !self.data.inputRuleType;
-            //     self.$update();
-            // },3000);
+            this.data.formData = new FormData();
+            this.supr();
         },
         goto: function(page){
             this.data.current = page;
             this.$update();
+        },
+
+        //kl-input
+        blurAction: function(){
+            console.log("blur");
         },
 
         // kl-button
@@ -126,7 +143,11 @@ define([
 
         //kl-upload
         uploadSubmit: function(){
-            console.log(this.data.fileList);
+            console.log(111,this.data.fileList);
+            console.log(222,this.data.formData.get('file'));
+            var c = new XMLHttpRequest();
+            c.open('json', '/test');
+            c.send(this.data.formData);
         },
         successCb: function(event){
             console.log('uploadSuccess', event);
@@ -143,6 +164,11 @@ define([
                 return data;
             }
             return false;  
+        },
+        upload: function(){
+            var ajax = new XMLHttpRequest();
+            ajax.open('json', '/upload');
+            ajax.send(this.data.formData); 
         },
 
         //kl-validation

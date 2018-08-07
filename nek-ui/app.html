@@ -49,7 +49,7 @@
     {#if current == 'kl-input'}
     <kl-row>
     <kl-col span=4>
-        <kl-input type="float" value={testValue | klInputTrans} decimalDigits="2" min=0 max=100 />
+        <kl-input type="float" value={testValue | klInputTrans} decimalDigits="2" min=0 max=100 on-blur={this.blurAction()} />
     </kl-col>
     </kl-row>
     {/if}
@@ -86,7 +86,12 @@
 
     {#if current == 'kl-upload'}
     <kl-form-item title="开户文件" class="f-mt20">
-        <kl-upload action='/backend/upload' multiple={true} accept="*" imageWidth={20} file-list={fileList} listType="list" on-success={this.successCb($event)} on-error={this.errorCb($event)} beforeOnLoad={this.beforeOnLoad}></kl-upload>
+        <kl-upload ref="fileUpload" action='/backend/upload' multiple={true} accept="*" imageWidth={20} file-list={fileList} formData={formData} listType="list" on-success={this.successCb($event)} on-error={this.errorCb($event)} autoUpload={true} beforeOnLoad={this.beforeOnLoad}></kl-upload>
+
+        <kl-upload ref="fileUpload" action='https://nos.kaolafed.com/upload' multiple={true} accept="*" file-list={fileList} listType="list" on-success={this.successCb($event)} on-error={this.errorCb($event)}></kl-upload>
+
+        <kl-upload file-list={list} autoUpload={false} formData={formData}></kl-upload>
+        <kl-button title="上传" on-click={this.upload()}></kl-button>
     </kl-form-item>
     <kl-button title="提交" on-click={this.uploadSubmit()}/>
     {/if}
@@ -103,7 +108,8 @@
     {/if}
 
     {#if current == 'kl-date-picker'}
-    <kl-date-picker date={datePickerValue} showTime={true} defaultTime="23:59:59" class="f-fl" />
+    <kl-date-picker date={beginTime} maxDate={endTime} class="f-fl" />
+    <kl-date-picker date={endTime} minDate={beginTime} class="f-fl" />
     <kl-button title="重置" on-click={datePickerValue=undefined} />
     {/if}
     
