@@ -15,4 +15,17 @@
 
 
 /*5. dgram*/
-require('./dgram');
+// require('./dgram');
+
+
+/*6. dns*/
+// require('./dns');
+
+
+/*7. events*/
+// require('./events');
+
+
+/*8. module*/
+require('./module');
+console.log('/index.js is main? ', require.main === module);

@@ -1,0 +1,1 @@
+console.log('/module/test.js is main? ', require.main === module);
