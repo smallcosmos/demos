@@ -27,5 +27,28 @@
 
 
 /*8. module*/
-require('./module');
-console.log('/index.js is main? ', require.main === module);
+// require('./module');
+// console.log('/index.js is main? ', require.main === module);
+
+
+/*9. events*/
+// require('./os');
+
+
+/*10. readline*/
+// require('./readline');
+
+
+/*11. repl*/
+// require('./repl');
+
+
+/*12. http*/
+debugger;
+// setInterval(() => {
+//     debugger;
+// }, 2000);
+require('./koa');
+require('./http');
+
+

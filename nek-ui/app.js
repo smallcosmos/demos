@@ -62,7 +62,7 @@ define([
                 Rules: Rules,
                 navTpl: navTpl,
                 funcValidateTpl: funcValidateTpl,
-                current: 'kl-button',
+                current: 'kl-select',
                 testSource: [{
                     id: 1,
                     name: "asd"
@@ -70,7 +70,7 @@ define([
                     id: 2,
                     name: 'qwe'
                 }],
-                testValue: 2,
+                testValue: null,
                 checkValue1: true,
                 checkValue2: false,
                 checkValue3: true,

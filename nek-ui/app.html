@@ -112,5 +112,9 @@
     <kl-date-picker date={endTime} minDate={beginTime} class="f-fl" />
     <kl-button title="重置" on-click={datePickerValue=undefined} />
     {/if}
+
+    {#if current == 'kl-select'}
+    <kl-select source={testSource} multiple={true} value={testValue} placeholder="test" />
+    {/if}
     
 </div>
