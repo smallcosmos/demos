@@ -1,0 +1,42 @@
+{
+	"code": 200,
+	"message": "success",
+	"result": {
+		"menuList": [{
+			"title": "Home",
+			"url": "",
+			"children": [{
+				"title": "home",
+				"url": "/mint/home/index"
+			}]
+		}, {
+			"title": "Test",
+			"url": "",
+			"children": [{
+				"title": "test1",
+				"url": "/mint/test"
+			}]
+		}, {
+			"title": "Js Components",
+			"url": "",
+			"children": [{
+				"title": "Toast",
+				"url": "/mint/jsComponents/toast"
+			}]
+		}, {
+			"title": "Css Components",
+			"url": "",
+			"children": [{
+				"title": "Header",
+				"url": "/mint/cssComponents/header"
+			}]
+		}, {
+			"title": "Form Components",
+			"url": "",
+			"children": [{
+				"title": "Switch",
+				"url": "/mint/formComponents/switch"
+			}]
+		}]
+	}
+}
