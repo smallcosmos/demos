@@ -47,7 +47,6 @@ export default {
             this.$refs.loadmore.onBottomLoaded();
         },
         allLoaded() {
-            console.log('loaded');
         }
     }
 }
