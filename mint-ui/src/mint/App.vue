@@ -46,7 +46,9 @@ export default {
             this.allLoaded = true;// if all data are loaded
             this.$refs.loadmore.onBottomLoaded();
         },
-        allLoaded() {}
+        allLoaded() {
+            console.log('loaded');
+        }
     }
 }
 </script>
