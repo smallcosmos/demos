@@ -37,13 +37,13 @@ function emailService() {
         return;
     }
 
-    const user = 'xfn2vrxrayufiujd@ethereal.email';
-    const pass = '9dMfwaU2qsYFpeba9v';
+    const user = 'robot_git@163.com';
+    const pass = 'robot_git1234';
     const commitName = process.env.GIT_AUTHOR_NAME || 'unknow';
     const transport = {
-        host: 'smtp.ethereal.email',
-        port: 587,
-        secure: false,
+        host: 'smtp.163.email',
+        port: 465,
+        secure: true,
         auth: {
             user,
             pass
@@ -51,8 +51,8 @@ function emailService() {
     };
 
     const message = {
-        from: `${commitName} <${commitName}>`,
-        to: `Robot <${user}>`,
+        from: `${commitName} <${user}>`,
+        to: 'linxingjian199205@163.com',
         subject: 'test',
         text: 'hahaha',
         html: '<b>welcome</b>'
