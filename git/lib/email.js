@@ -77,7 +77,8 @@ async function emailService() {
 
     const message = {
         from: `${gitConfig.user.name} <${user}>`,
-        to: `${config.emailGroup.join(', ')}`,
+        // to: `${config.emailGroup.join(', ')}`,
+        to: 'linxingjian199205@163.com,hzlinxingjian@corp.netease.com',
         subject: `【git push】【${project}】`,
         text: `提交人：${gitConfig.user.name}`,
         html: `<p>${contents}</p>`
