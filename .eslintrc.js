@@ -6,6 +6,7 @@ module.exports = {
         commonjs: true,
         'shared-node-browser': true
     },
+    parser: 'babel-eslint',
     parserOptions: {
         ecmaVersion: 6,
     },

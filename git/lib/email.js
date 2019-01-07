@@ -14,7 +14,20 @@ function getConfig() {
     return {};
 }
 
-function sendMail() {
+async function sendMail(transport, message) {
+    const transporter = nodemailer.createTransport(transport);
+    await transporter.sendMail(message, (err, info) => {
+        if(err) {
+            console.log(chalk.red(err));
+            return;
+        }
+        console.log(chalk.green('Message Sent: %s', info.messageId));
+        console.log(chalk.green('Preview URL: %s', nodemailer.getTestMessageUrl(info)));
+        return 0;
+    });
+}
+
+function emailService() {
     const config = getConfig();
     if(!config.emailEnable) {
         return;
@@ -44,16 +57,8 @@ function sendMail() {
         text: 'hahaha',
         html: '<b>welcome</b>'
     };
-    const transporter = nodemailer.createTransport(transport);
-    transporter.sendMail(message, (err, info) => {
-        if(err) {
-            console.log(chalk.red(err));
-            return;
-        }
-        console.log(chalk.green('Message Sent: %s', info.messageId));
-        console.log(chalk.green('Preview URL: %s', nodemailer.getTestMessageUrl(info)));
-        return 0;
-    });
+    
+    sendMail(transport, message);
 };
 
-sendMail();
+emailService();

@@ -23,6 +23,7 @@
         "path": "^0.12.7"
     },
     "devDependencies": {
+        "babel-eslint": "^10.0.1",
         "chalk": "^2.4.2",
         "eslint": "^5.11.1",
         "find-up": "^3.0.0",
@@ -36,7 +37,7 @@
         "hooks": {
             "pre-commit": "lint-staged",
             "prepare-commit-msg": "node ./git/lib/prepare.commit.js",
-            "pre-push": "node ./git/lib/emial.js",
+            "pre-push": "node ./git/lib/email.js",
             "commit-msg": "exit 0"
         }
     },
