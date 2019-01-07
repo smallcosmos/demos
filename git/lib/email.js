@@ -60,6 +60,7 @@ async function emailService() {
     const {output} = await spawnSync('git', ['log', `${gitStdin[1]}...${gitStdin[3].trim()}`, '--shortstat', '--format=email'], {
         cwd: path.dirname(findUp.sync('.git'))
     });
+    debugger;
     let contents = output.toString().replace(/^,/, '').replace(/,$/, '').trim().replace(/\n/g, '<br />');
 
     const user = 'robot_git@163.com';
