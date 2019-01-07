@@ -33,6 +33,14 @@ git配置以及命令行操作
 
 **git apply 是一个事务性操作的命令，也就是说，要么所有补丁都打上去，要么全部放弃**
 
+### npm 
+
+##### npm 小技巧
+1. npm home $package 可以快速打开主页
+2. npm repo $package 可以快速打开仓库
+3. npm outdated 查看过时的依赖
+4. .npmignore
+
 ### js-lib
 
 包含了一些原生javascript的兼容性代码
