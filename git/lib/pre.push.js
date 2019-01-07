@@ -5,4 +5,4 @@ const path = require('path');
 spawn('node', [path.join(__dirname, './email.js')], {
     stdio: 'inherit'
 });
-process.exit(1);
+process.exit(0);
