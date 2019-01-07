@@ -26,18 +26,23 @@
         "babel-eslint": "^10.0.1",
         "chalk": "^2.4.2",
         "eslint": "^5.11.1",
+        "execa": "^1.0.0",
+        "extend": "^3.0.2",
         "find-up": "^3.0.0",
         "git-branch": "^2.0.1",
+        "git-user-name": "^2.0.0",
         "husky": "^1.3.1",
         "koa": "^2.5.2",
         "lint-staged": "^8.1.0",
-        "nodemailer": "^5.0.0"
+        "nodemailer": "^5.0.0",
+        "os": "^0.1.1",
+        "parse-git-config": "^3.0.0"
     },
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged",
             "prepare-commit-msg": "node ./git/lib/prepare.commit.js",
-            "pre-push": "node --inspect-brk ./git/lib/pre.push.js",
+            "pre-push": "node ./git/lib/pre.push.js",
             "commit-msg": "exit 0"
         }
     },

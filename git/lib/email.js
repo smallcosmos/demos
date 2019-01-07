@@ -1,8 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const {spawnSync} = require('child_process');
 const findUp = require('find-up');
 const chalk = require('chalk');
 const nodemailer = require('nodemailer');
+const gitParse = require('parse-git-config');
+const os = require('os');
+const extend = require('extend');
 
 function getConfig() {
     const gitDir = findUp.sync('.git');
@@ -27,7 +31,7 @@ async function sendMail(transport, message) {
     });
 }
 
-function emailService() {
+async function emailService() {
     const config = getConfig();
     if(!config.emailEnable) {
         return;
@@ -37,9 +41,30 @@ function emailService() {
         return;
     }
 
+    const globalConfig = gitParse.sync({path: path.join(os.homedir(), '.gitconfig')});
+    const localConfig = gitParse.sync();
+    const gitConfig = extend(true, globalConfig, localConfig);
+
+    //远程分支的名字和位置
+    //origin git@github.com:smallcosmos/demos.git
+    console.log(process.env.HUSKY_GIT_PARAMS);
+    const ssh = process.env.HUSKY_GIT_PARAMS.split(' ')[1];
+    const project = ssh && ssh.substr(ssh.lastIndexOf('/') + 1).replace('.ssh', '');
+    //一系列待更新的引用
+    //refs/heads/master 03d71c057153cc1f5e4e73a72576787e9bfb73c8 refs/heads/master 01d215c552774ee46c90ce75f14ea73753096fa1
+    let gitStdin = process.env.HUSKY_GIT_STDIN;
+    gitStdin = (gitStdin || '').split(' ');
+    if(!gitStdin[1] || !gitStdin[3]) {
+        console.log(chalk.error('没有找到待更新的引用'));
+        return;
+    }
+    const {output} = await spawnSync('git', ['log', `${gitStdin[1]}...${gitStdin[3].trim()}`, '--shortstat', '--format=email'], {
+        cwd: path.dirname(findUp.sync('.git'))
+    });
+    let contents = output.toString().replace(/^,/, '').replace(/,$/, '').trim();
+
     const user = 'robot_git@163.com';
     const pass = 'robot1234';
-    const commitName = process.env.GIT_AUTHOR_NAME || 'unknow';
     const transport = {
         host: 'smtp.163.com',
         port: 465,
@@ -51,11 +76,11 @@ function emailService() {
     };
 
     const message = {
-        from: `${commitName} <${user}>`,
-        to: 'linxingjian199205@163.com',
-        subject: 'git 提交<功能测试开发>',
-        text: '提交人：林兴建，提交记录： ‘argsdf',
-        html: '<b>welcome</b>'
+        from: `${gitConfig.user.name} <${user}>`,
+        to: `${config.emailGroup.join(',')}`,
+        subject: `【git push】【${project}】`,
+        text: `提交人：${gitConfig.user.name}`,
+        html: `<p>${contents}</p>`
     };
     
     sendMail(transport, message);
