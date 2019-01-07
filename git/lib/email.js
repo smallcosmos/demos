@@ -38,10 +38,10 @@ function emailService() {
     }
 
     const user = 'robot_git@163.com';
-    const pass = 'robot_git1234';
+    const pass = 'robot1234';
     const commitName = process.env.GIT_AUTHOR_NAME || 'unknow';
     const transport = {
-        host: 'smtp.163.email',
+        host: 'smtp.163.com',
         port: 465,
         secure: true,
         auth: {
@@ -53,8 +53,8 @@ function emailService() {
     const message = {
         from: `${commitName} <${user}>`,
         to: 'linxingjian199205@163.com',
-        subject: 'test',
-        text: 'hahaha',
+        subject: 'git 提交<功能测试开发>',
+        text: '提交人：林兴建，提交记录： ‘argsdf',
         html: '<b>welcome</b>'
     };
     

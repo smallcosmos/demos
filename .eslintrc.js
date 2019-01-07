@@ -57,7 +57,7 @@ module.exports = {
         "no-negated-in-lhs": 2, // 在 in 操作符左边的操作项不能用 ! 例如这样写不对的：if ( !a in b) { // dosomething }
         "no-obj-calls": 2, // 禁止把全局对象当函数调用，比如下面写法错误的：Math(), JSON()
         "no-regex-spaces": 2, //禁止在正则表达式字面量中使用多个空格 /foo bar/
-        "no-debugger": 2, // 禁用 debugger
+        "no-debugger": 1, // 禁用 debugger
         "no-dupe-args": 2, // 禁止 function 定义中出现重名参数
         "no-dupe-keys": 2, // 禁止对象字面量中出现重复的 key
         "no-func-assign": 2, // 禁止对 function 声明重新赋值
