@@ -49,7 +49,7 @@ async function emailService() {
     //origin git@github.com:smallcosmos/demos.git
     console.log(process.env.HUSKY_GIT_PARAMS);
     const ssh = process.env.HUSKY_GIT_PARAMS.split(' ')[1];
-    const project = ssh && ssh.substr(ssh.lastIndexOf('/') + 1).replace('.ssh', '');
+    const project = ssh && ssh.substr(ssh.lastIndexOf('/') + 1).replace('.git', '');
     //一系列待更新的引用
     //refs/heads/master 03d71c057153cc1f5e4e73a72576787e9bfb73c8 refs/heads/master 01d215c552774ee46c90ce75f14ea73753096fa1
     let gitStdin = process.env.HUSKY_GIT_STDIN;
@@ -80,7 +80,7 @@ async function emailService() {
         to: `${config.emailGroup.join(',')}`,
         subject: `【git push】【${project}】`,
         text: `提交人：${gitConfig.user.name}`,
-        html: `<p>${contents}</p>`
+        html: `${contents}`
     };
     
     sendMail(transport, message);
