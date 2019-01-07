@@ -47,7 +47,6 @@ async function emailService() {
 
     //远程分支的名字和位置
     //origin git@github.com:smallcosmos/demos.git
-    console.log(process.env.HUSKY_GIT_PARAMS);
     const ssh = process.env.HUSKY_GIT_PARAMS.split(' ')[1];
     const project = ssh && ssh.substr(ssh.lastIndexOf('/') + 1).replace('.git', '');
     //一系列待更新的引用
@@ -78,10 +77,10 @@ async function emailService() {
     const message = {
         from: `${gitConfig.user.name} <${user}>`,
         // to: `${config.emailGroup.join(', ')}`,
-        to: 'linxingjian199205@163.com,hzlinxingjian@corp.netease.com',
+        to: 'linxingjian199205@163.com',
         subject: `【git push】【${project}】`,
         text: `提交人：${gitConfig.user.name}`,
-        html: `<p>${contents}</p>`
+        html: `<head><meta charset="utf-8"/></head><p>${contents}</p>`
     };
     
     sendMail(transport, message);
