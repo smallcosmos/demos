@@ -61,7 +61,7 @@ async function emailService() {
     const {output} = await spawnSync('git', ['log', `${gitStdin[1]}...${gitStdin[3].trim()}`, '--shortstat', '--format=email'], {
         cwd: path.dirname(findUp.sync('.git'))
     });
-    let contents = output.toString().replace(/^,/, '').replace(/,$/, '').trim();
+    let contents = output.toString().replace(/^,/, '').replace(/,$/, '').trim().replace(/\n/g, '<br />');
 
     const user = 'robot_git@163.com';
     const pass = 'robot1234';
@@ -77,10 +77,10 @@ async function emailService() {
 
     const message = {
         from: `${gitConfig.user.name} <${user}>`,
-        to: `${config.emailGroup.join(',')}`,
+        to: `${config.emailGroup.join(', ')}`,
         subject: `【git push】【${project}】`,
         text: `提交人：${gitConfig.user.name}`,
-        html: `${contents}`
+        html: `<p>${contents}</p>`
     };
     
     sendMail(transport, message);
