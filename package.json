@@ -37,7 +37,7 @@
         "hooks": {
             "pre-commit": "lint-staged",
             "prepare-commit-msg": "node ./git/lib/prepare.commit.js",
-            "pre-push": "node ./git/lib/email.js",
+            "pre-push": "node ./git/lib/pre.push.js",
             "commit-msg": "exit 0"
         }
     },

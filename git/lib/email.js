@@ -21,8 +21,8 @@ async function sendMail(transport, message) {
             console.log(chalk.red(err));
             return;
         }
-        console.log(chalk.green('Message Sent: %s', info.messageId));
-        console.log(chalk.green('Preview URL: %s', nodemailer.getTestMessageUrl(info)));
+        console.log(chalk.green('Message Sent: ', info.messageId));
+        console.log(chalk.green('Preview URL: ', nodemailer.getTestMessageUrl(info)));
         return 0;
     });
 }
