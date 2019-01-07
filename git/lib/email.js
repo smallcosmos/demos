@@ -57,10 +57,10 @@ async function emailService() {
         console.log(chalk.error('没有找到待更新的引用'));
         return;
     }
-    const {output} = await spawnSync('git', ['log', `${gitStdin[1]}...${gitStdin[3].trim()}`, '--shortstat', '--format=email'], {
-        cwd: path.dirname(findUp.sync('.git'))
+    const {output} = await spawnSync('git', ['log', `${gitStdin[1]}...${gitStdin[3].trim()}`, '--shortstat', '--pretty=medium', '--encoding=utf8'], {
+        cwd: path.dirname(findUp.sync('.git')),
+        encoding: 'utf8'
     });
-    debugger;
     let contents = output.toString().replace(/^,/, '').replace(/,$/, '').trim().replace(/\n/g, '<br />');
 
     const user = 'robot_git@163.com';
@@ -77,8 +77,7 @@ async function emailService() {
 
     const message = {
         from: `${gitConfig.user.name} <${user}>`,
-        // to: `${config.emailGroup.join(', ')}`,
-        to: 'linxingjian199205@163.com',
+        to: `${config.emailGroup.toString()}`,
         subject: `【git push】【${project}】`,
         text: `提交人：${gitConfig.user.name}`,
         html: `<head><meta charset="utf-8"/></head><p>${contents}</p>`
