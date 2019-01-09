@@ -6,9 +6,13 @@ module.exports = {
         commonjs: true,
         'shared-node-browser': true
     },
+    "plugins": [
+        "vue",
+        'html'
+    ],
     parser: 'babel-eslint',
     parserOptions: {
-        ecmaVersion: 6,
+        ecmaVersion: 6
     },
     "globals": {
         "Promise": true,

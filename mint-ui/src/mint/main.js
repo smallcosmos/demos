@@ -3,10 +3,12 @@ import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import App from './App.vue';
 
-Vue.use(MintUI)
+Vue.use(MintUI);
 
 new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App />'
-})
+    el: '#app',
+    components: {
+        App
+    },
+    template: '<App />'
+});

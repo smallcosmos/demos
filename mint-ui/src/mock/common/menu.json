@@ -10,13 +10,6 @@
 				"url": "/mint/home/index"
 			}]
 		}, {
-			"title": "Test",
-			"url": "",
-			"children": [{
-				"title": "test1",
-				"url": "/mint/test"
-			}]
-		}, {
 			"title": "Js Components",
 			"url": "",
 			"children": [{
