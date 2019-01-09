@@ -1,5 +1,5 @@
 {
-    "emailEnable": true,
+    "emailEnable": false,
     "emailGroup": [
         "hzlinxingjian@corp.netease.com"
     ]
